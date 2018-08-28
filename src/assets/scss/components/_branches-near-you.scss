@@ -1,11 +1,15 @@
+$primary-color: #F37021;
+$secondary-color: #9B9B9B;
+$border-color: #E6E6E6;
+
 .branchesNearYou {
     width: 510px;
     display: flex;
     flex-direction: column;
-    
+    padding-left: 60px;
     .bnyHeader {
         font-size: 30px;
-        color: #F37021;
+        color: $primary-color;
         letter-spacing: 0;
         line-height: 48px;
     }
@@ -13,26 +17,88 @@
 
 .origin {
     p {
-        font-size: 18px;
-        color: #9B9B9B;
+        font-size: 14px;
+        font-weight: normal;
+        color: $secondary-color;
         letter-spacing: 0.26px;
         line-height: 36px;
     }
 
-    .originInput {
-        background: #FFFFFF;
-        border: 1px solid #E6E6E6;
+    .ant-input {
+        background: #fff;
         border-radius: 10px;
+        border: 1px solid $border-color;
         height: 50px;
         width: 390px;
+        outline: none;
+    }
+
+    .originInput {
+        height: 50px;
+        width: 390px;
+    }
+
+    .pin-search {
+        margin-right: 5px;
     }
 }
 
 .destination {
+    margin-top: 16px;
     p {
-        font-size: 18px;
-        color: #9B9B9B;
+        font-size: 14px;
+        font-weight: normal;
+        color: $secondary-color;
         letter-spacing: 0.26px;
         line-height: 36px;
     }
+
+    .ant-btn {
+        &:hover {
+            color: $primary-color;
+            background-color: #fff;
+            border-color: none;
+            &.ant-dropdown-trigger {
+                border-color: $primary-color;
+                span {
+                    color: $primary-color;
+                }
+                i.anticon-down {
+                    color: $primary-color
+                }
+            }
+        }
+        &:focus {
+            color: $primary-color;
+            background-color: #fff;
+            border-color: none;
+            &.ant-dropdown-trigger {
+                border-color: $primary-color;
+                span {
+                    color: $primary-color;
+                }
+                i.anticon-down {
+                    color: $primary-color
+                }
+            }
+        }
+        &.ant-dropdown-trigger {
+            background: #fff;
+            border: 1px solid $border-color;
+            border-radius: 10px;
+            width: 390px;
+            height: 50px;
+            span {
+                float: left;
+                color: $secondary-color;
+                opacity: 0.7;
+            }
+            i.anticon-down {
+                float: right;
+                font-size: 24px;
+            }
+        }
+    }
+
+    
 }
