@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import './assets/scss/main.scss';
 
 // const scrpt = document.createElement('script');
 // scrpt.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBEttZ5SI2efRacfNFCL21j4HtGZo5Od58&v=3.exp&libraries=geometry,drawing,places';
