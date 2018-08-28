@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { Input } from 'antd';
 import style from '../assets/scss/main.scss';
 import {
     toggleLoading,
@@ -14,19 +15,36 @@ import {
 } from '../redux/actions/creators';
 
 class BranchesNearYou extends Component {
-  render() {
-    return (
-      <div className={style.branchesNearYou}>
-        <h2>Branches Near You</h2>
-        <p>Enter address of origin (e.g. Street, City)</p>
-        <p>Select branch</p>
-      </div>
-    )
-  }
+
+    componentDidMount = () => {
+        this.props.toggleLoading();
+    };
+    
+    render() {
+        return (
+            <div className="branchesNearYou">
+                <h2 className="bnyHeader">Branches Near You</h2>
+                <div className="origin">
+                <p>Enter address of origin (e.g. Street, City)</p>
+                    <Input className="originInput" placeholder="Choose starting point" />
+            </div>
+            <div className="destination">
+                <p>Select branch</p>
+            </div>
+        </div>
+        )
+    }
 }
 
 const mapStateToProps = state => {
-    return state;
+    const { loading } = state.loadingReducer;
+    const { branches, origin, destination } = state.coordinatesReducer;
+    return {
+        loading,
+        branches,
+        origin,
+        destination
+    };
 };
 
 const mapDispatchToProps = dispatch => {

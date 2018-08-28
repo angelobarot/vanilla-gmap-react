@@ -1,0 +1,38 @@
+.branchesNearYou {
+    width: 510px;
+    display: flex;
+    flex-direction: column;
+    
+    .bnyHeader {
+        font-size: 30px;
+        color: #F37021;
+        letter-spacing: 0;
+        line-height: 48px;
+    }
+}
+
+.origin {
+    p {
+        font-size: 18px;
+        color: #9B9B9B;
+        letter-spacing: 0.26px;
+        line-height: 36px;
+    }
+
+    .originInput {
+        background: #FFFFFF;
+        border: 1px solid #E6E6E6;
+        border-radius: 10px;
+        height: 50px;
+        width: 390px;
+    }
+}
+
+.destination {
+    p {
+        font-size: 18px;
+        color: #9B9B9B;
+        letter-spacing: 0.26px;
+        line-height: 36px;
+    }
+}
