@@ -43,7 +43,7 @@ function coordinatesReducer (state = initialState, action) {
             return { 
                 ...state,
                 origin: {
-                    ...origin,
+                    ...state.origin,
                     latitude: action.payload
                 } 
             };
@@ -51,7 +51,7 @@ function coordinatesReducer (state = initialState, action) {
             return {
                 ...state,
                 origin: {
-                    ...origin,
+                    ...state.origin,
                     longitude: action.payload
                 }
             };
@@ -59,7 +59,7 @@ function coordinatesReducer (state = initialState, action) {
             return {
                 ...state,
                 origin: {
-                    ...origin,
+                    ...state.origin,
                     address: action.payload
                 }
             };
@@ -67,7 +67,7 @@ function coordinatesReducer (state = initialState, action) {
             return {
                 ...state,
                 destination: {
-                    ...destination,
+                    ...state.destination,
                     latitude: action.payload
                 }
             };
@@ -75,7 +75,7 @@ function coordinatesReducer (state = initialState, action) {
             return {
                 ...state,
                 destination: {
-                    ...destination,
+                    ...state.destination,
                     longitude: action.payload
                 }
             };
@@ -83,14 +83,14 @@ function coordinatesReducer (state = initialState, action) {
             return {
                 ...state,
                 destination: {
-                    ...destination,
+                    ...state.destination,
                     address: action.payload
                 }
             };
         case GET_BRANCHES:
             return {
                 ...state,
-                branches: [ ...branches, action.payload ]
+                branches: [ ...state.branches, action.payload ]
             }
         default:
             return state;
