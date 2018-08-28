@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BranchesNearYou from '../components/BranchesNearYou';
+import BranchDetails from '../components/BranchDetails';
 import 'antd/dist/antd.css';
 import dispatcher from '../redux/dispatcher/dispatcher';
 import state from '../redux/state/state';
@@ -65,7 +66,13 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="left-content">
-                    <BranchesNearYou />
+                    <BranchDetails
+                        branchName="UnionBank Dela Rosa"
+                        address="G/F, Insular Health Care Bldg., 167 Dela Rosa corner Legazpi Street, Legaspi Village, Makati City"
+                        weekday="Monday to Friday 9:00 am - 3:00 pm"
+                        weekend="Saturday: 10:00 am - 3:00 pm"
+                        contactNumber="Tel: (02) 4785509 / (02) 5958239 / (02) 8080465"
+                    />
                 </div>
                 <div className="map" ref={this.mapContainer} id="map"></div>
             </div>

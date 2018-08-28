@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Input, Icon, Button, Menu, Dropdown } from 'antd';
 import GetDirection from './common/GetDirection';
-import style from '../assets/scss/main.scss';
 import state from '../redux/state/state';
 import dispatcher from '../redux/dispatcher/dispatcher';
 

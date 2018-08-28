@@ -1,0 +1,24 @@
+.branch-details {
+    padding: 0 58px;
+    .branch-name {
+        font-weight: 300;
+        font-size: 30px;
+        color: #F37021;
+        letter-spacing: 0;
+        line-height: 48px;
+    }
+    .branch-address, 
+    .branch-weekday, 
+    .branch-weekend,
+    .branch-contact {
+        font-weight: 200;
+        font-size: 18px;
+        color: #4A4A4A;
+        letter-spacing: 0.26px;
+        line-height: 24px;
+    }
+
+    .branch-weekend {
+        color: #ED5734;
+    }
+}
