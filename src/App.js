@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom';
 import logo from './logo.svg';
-import './App.css';
+import style from './assets/scss/main.scss';
 
 const google = window.google;
 
@@ -24,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div style={{ width: '100%', height: 500 }} ref={this.mapContainer} id="map"></div>
+        <div className={style.map} ref={this.mapContainer} id="map"></div>
       </div>
     );
   }
