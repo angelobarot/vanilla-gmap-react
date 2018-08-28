@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 import './assets/scss/main.scss';
 
 // const scrpt = document.createElement('script');
@@ -11,5 +11,9 @@ import './assets/scss/main.scss';
 // scrpt.type = 'text/javascript';
 // document.querySelector('head').appendChild(scrpt);
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+window.addEventListener('DOMContentLoaded', function () {
+    ReactDOM.render(<App />, document.getElementById('root'));
+}, true);
+
+// ReactDOM.render(<App />, document.getElementById('root'));
+// registerServiceWorker();
