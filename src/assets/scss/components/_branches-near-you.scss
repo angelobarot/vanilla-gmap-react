@@ -109,7 +109,7 @@ $border-color: #E6E6E6;
 
 .ant-dropdown-menu-item {
     &:hover,&:focus {
-        background-color: $primary-color;
+        background-color: $primary-color !important;
         color: #fff;
     }
 }
