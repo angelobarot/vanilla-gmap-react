@@ -9,6 +9,7 @@ $border-color: #E6E6E6;
     padding-left: 60px;
     .bnyHeader {
         font-size: 30px;
+        font-weight: normal;
         color: $primary-color;
         letter-spacing: 0;
         line-height: 48px;
@@ -31,6 +32,9 @@ $border-color: #E6E6E6;
         height: 50px;
         width: 390px;
         outline: none;
+        &:hover, &:focus {
+            border-color: $primary-color !important;
+        }
     }
 
     .originInput {
@@ -101,4 +105,16 @@ $border-color: #E6E6E6;
     }
 
     
+}
+
+.ant-dropdown-menu-item {
+    &:hover,&:focus {
+        background-color: $primary-color;
+        color: #fff;
+    }
+}
+
+.button-container {
+    margin-top: 34px;
+    width: 390px;
 }

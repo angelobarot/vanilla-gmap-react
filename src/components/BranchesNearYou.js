@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Input, Icon, Button, Menu, Dropdown } from 'antd';
+import GetDirection from './common/GetDirection';
 import {
     toggleLoading,
     stopLoading,
@@ -33,7 +34,7 @@ class BranchesNearYou extends Component {
     render() {
         return (
             <div className="branchesNearYou">
-                <h2 className="bnyHeader">Branches Near You</h2>
+                <h2 className="bnyHeader">Branches near you</h2>
                 <div className="origin">
                 <p>Enter address of origin (e.g. Street, City)</p>
                     <Input 
@@ -49,6 +50,9 @@ class BranchesNearYou extends Component {
                             Nearby branch by default <Icon type="down" />
                         </Button>
                     </Dropdown>
+            </div>
+            <div className="button-container">
+                    <GetDirection />
             </div>
         </div>
         )
