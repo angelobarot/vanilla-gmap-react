@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
 import style from './assets/scss/main.scss';
+import BranchesNearYou from './components/BranchesNearYou';
 
 const google = window.google;
 
@@ -23,7 +22,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className={style.App}>
+        <div className="left-content">
+          <BranchesNearYou />
+        </div>
         <div className={style.map} ref={this.mapContainer} id="map"></div>
       </div>
     );
