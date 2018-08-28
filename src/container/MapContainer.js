@@ -66,13 +66,15 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="left-content">
-                    <BranchDetails
+                    <BranchesNearYou getDirection />
+                    {/* <BranchDetails
                         branchName="UnionBank Dela Rosa"
                         address="G/F, Insular Health Care Bldg., 167 Dela Rosa corner Legazpi Street, Legaspi Village, Makati City"
                         weekday="Monday to Friday 9:00 am - 3:00 pm"
                         weekend="Saturday: 10:00 am - 3:00 pm"
                         contactNumber="Tel: (02) 4785509 / (02) 5958239 / (02) 8080465"
-                    />
+                    /> */}
+
                 </div>
                 <div className="map" ref={this.mapContainer} id="map"></div>
             </div>

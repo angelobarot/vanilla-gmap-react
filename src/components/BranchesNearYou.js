@@ -13,6 +13,8 @@ const menu = (
     </Menu>
 );
 
+const ButtonGroup = Button.Group;
+
 
 class BranchesNearYou extends Component {
 
@@ -23,7 +25,29 @@ class BranchesNearYou extends Component {
     render() {
         return (
             <div className="branchesNearYou">
-                <h2 className="bnyHeader">Branches near you</h2>
+                {
+                    this.props.getDirection ?
+                    <div className="get-direction-buttons">
+                        <div className="transportation-buttons">
+                                <ButtonGroup>
+                                    <Button>
+                                        <img src={require('../assets/images/walking.png')} alt="walking" />
+                                    </Button>
+                                    <Button>
+                                        <img src={require('../assets/images/car.png')} alt="walking" />
+                                    </Button>
+                                    <Button>
+                                        <img src={require('../assets/images/bus.png')} alt="walking" />
+                                    </Button>
+                                </ButtonGroup>
+                        </div>
+                        <div className="close-btn">
+                            <Button icon="close"></Button>
+                        </div>
+                    </div> :
+                    <h2 className="bnyHeader">Branches near you</h2>
+                    
+                }
                 <div className="origin">
                     <p>Enter address of origin (e.g. Street, City)</p>
                     <Input
@@ -40,9 +64,13 @@ class BranchesNearYou extends Component {
                         </Button>
                     </Dropdown>
                 </div>
-                <div className="button-container">
-                    <GetDirection />
-                </div>
+                {
+                    this.props.getDirection ?
+                    <div /> :
+                    <div className="button-container">
+                        <GetDirection />
+                    </div>
+                }
             </div>
         )
     }
