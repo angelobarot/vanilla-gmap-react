@@ -1,0 +1,24 @@
+$gradient: linear-gradient(43deg, #F37021 0%, #ED5635 100%);
+$text-color: #F9F9F9;
+.get-direction {
+    .ant-btn {
+        background-image: $gradient;
+        border-radius: 22px;
+        font-size: 16px;
+        color: $text-color;
+        letter-spacing: 0.27px;
+        text-align: center;
+        width: 250px;
+        height: 50px;
+        span {
+            font-size: 16px;
+            font-weight: 100;
+            color: $text-color;
+            letter-spacing: 0.27px;
+            text-align: center;
+        }
+        &:hover, &:focus {
+            border-color: transparent;
+        }
+    }
+}
