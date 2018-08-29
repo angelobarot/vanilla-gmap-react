@@ -5,22 +5,40 @@ import GetDirection from './common/GetDirection';
 import state from '../redux/state/state';
 import dispatcher from '../redux/dispatcher/dispatcher';
 
-const menu = (
-    <Menu>
-        <Menu.Item key="1">1st item</Menu.Item>
-        <Menu.Item key="2">2nd item</Menu.Item>
-        <Menu.Item key="3">3rd item</Menu.Item>
-    </Menu>
-);
-
 const ButtonGroup = Button.Group;
-
 
 class BranchesNearYou extends Component {
 
     componentDidMount = () => {
-        console.log(this.props.origin.address);
     };
+
+    handleMenuClick = (e) => {
+        console.log('click', e.item.props.value);
+    }
+
+    renderMenu() {
+            return (
+                <Dropdown 
+                    overlay={
+                        <Menu onClick={this.handleMenuClick}>
+                            {
+                                this.props.branches.map((branch) => {
+                                    return <Menu.Item key={branch.id} value={branch}><Icon type="environment" />{branch.vicinity}</Menu.Item>
+                                })
+                            }
+
+                        </Menu>
+                    } 
+                    trigger={['click']}
+                >
+                {
+                            <Button>
+                                Nearest branch by default <Icon type="down" />
+                            </Button>
+                }
+                </Dropdown>
+            );
+    }
 
     handleClose = () => {
         this.props.toggleDirection();
@@ -60,6 +78,7 @@ class BranchesNearYou extends Component {
                     <p>Enter address of origin (e.g. Street, City)</p>
                     <Input
                         className="originInput"
+                        id="pac-input"
                         value={this.props.origin.address}
                         onChange={this.handleTextChange}
                         placeholder="Choose starting point"
@@ -68,11 +87,7 @@ class BranchesNearYou extends Component {
                 </div>
                 <div className="destination">
                     <p>Select branch</p>
-                    <Dropdown overlay={menu} trigger={['click']}>
-                        <Button>
-                            Nearby branch by default <Icon type="down" />
-                        </Button>
-                    </Dropdown>
+                    {this.renderMenu()}
                 </div>
                 {
                     this.props.directionShow ?
