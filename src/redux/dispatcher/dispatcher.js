@@ -11,7 +11,8 @@ import {
     getMap,
     toggleDirection,
     toggleTransit,
-    toggleBranchInfo
+    toggleBranchInfo,
+    getTravelType,
 } from '../actions/creators';
 
 const mapDispatchToProps = dispatch => {
@@ -46,6 +47,9 @@ const mapDispatchToProps = dispatch => {
         getMap: (map) => {
             dispatch(getMap(map));
         },
+        getTravelType: (travelType) => {
+            dispatch(getTravelType(travelType));
+        },
         toggleDirection: () => {
             dispatch(toggleDirection());
         },
@@ -54,7 +58,7 @@ const mapDispatchToProps = dispatch => {
         },
         toggleBranchInfo: () => {
             dispatch(toggleBranchInfo());
-        }
+        },
     }
 }
 
