@@ -11,10 +11,6 @@ const google = window.google;
 class App extends Component {
     constructor() {
         super();
-        this.state = {
-            map: null,
-            getDirection: false
-        };
         this.mapContainer = React.createRef();
         this.renderGoogleMap = this.renderGoogleMap.bind(this);
         this.success = this.success.bind(this);
@@ -36,12 +32,12 @@ class App extends Component {
 
     componentWillReceiveProps(nextProps) {
         const { latitude, longitude } = nextProps.origin;
-        if (this.state.map) {
+        if (this.props.map) {
             const position = new google.maps.LatLng(latitude, longitude);
-            this.state.map.setCenter(position);
-            this.state.map.setZoom(15);
+            this.props.map.setCenter(position);
+            this.props.map.setZoom(15);
 
-            const map = this.state.map;
+            const map = this.props.map;
             const marker = new google.maps.Marker({ 
                 position, 
                 map,
@@ -60,9 +56,7 @@ class App extends Component {
             },
             zoom: 8
         });
-
-        
-        this.setState({ map });
+        this.props.getMap(map);
     }
 
     success(position) {
@@ -71,7 +65,7 @@ class App extends Component {
         this.props.getLatOrigin(latitude);
         let geocoder = new google.maps.Geocoder();
         let infowindow = new google.maps.InfoWindow();
-        this.reverseGeocode(geocoder, this.state.map, infowindow);
+        this.reverseGeocode(geocoder, this.props.map, infowindow);
     }
 
     error(err) {
@@ -83,13 +77,13 @@ class App extends Component {
         geocoder.geocode({'location': latlng}, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {
-                    this.state.map.setZoom(15);
+                    this.props.map.setZoom(15);
                     let marker = new google.maps.Marker({
                         position: latlng,
-                        map: this.state.map
+                        map: this.props.map
                     });
                     infowindow.setContent(results[0].formatted_address);
-                    infowindow.open(this.state.map, marker);
+                    infowindow.open(this.props.map, marker);
                     this.props.getAddressOrigin(results[0].formatted_address);
                 } else {
                     window.alert('No results found');

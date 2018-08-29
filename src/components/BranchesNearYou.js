@@ -5,6 +5,8 @@ import GetDirection from './common/GetDirection';
 import state from '../redux/state/state';
 import dispatcher from '../redux/dispatcher/dispatcher';
 
+const google = window.google;
+
 const menu = (
     <Menu>
         <Menu.Item key="1">1st item</Menu.Item>

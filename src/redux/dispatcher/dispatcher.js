@@ -8,6 +8,7 @@ import {
     getLngDestination,
     getAddressDestination,
     getBranches,
+    getMap,
     toggleDirection,
     toggleTransit,
     toggleBranchInfo
@@ -41,6 +42,9 @@ const mapDispatchToProps = dispatch => {
         },
         getBranches: (branch) => {
             dispatch(getBranches(branch));
+        },
+        getMap: (map) => {
+            dispatch(getMap(map));
         },
         toggleDirection: () => {
             dispatch(toggleDirection());
