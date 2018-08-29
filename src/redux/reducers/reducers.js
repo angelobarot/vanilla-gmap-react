@@ -9,7 +9,6 @@ import {
     GET_LNG_DESTINATION,
     GET_ADDRESS_DESTINATION,
     GET_BRANCHES,
-    GET_BRANCH_DETAILS,
     GET_MAP,
     TOGGLE_DIRECTION,
     TOGGLE_TRANSIT,
@@ -102,14 +101,6 @@ function coordinatesReducer (state = initialState, action) {
                 ...state,
                 branches: [ ...state.branches, action.payload ]
             };
-        // case GET_BRANCH_DETAILS:
-        //     return {
-        //         ...state,
-        //         details: {
-        //             ...state.details,
-        //             action.payload
-        //         }
-        //     };
         case GET_MAP:
             return {
                 ...state,

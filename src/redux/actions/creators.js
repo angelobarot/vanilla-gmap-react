@@ -76,13 +76,6 @@ export function getBranches(branch) {
     }
 }
 
-export function getBranchDetails(details) {
-    return {
-        type: GET_BRANCH_DETAILS,
-        payload: details
-    }
-}
-
 export function getMap(map) {
     return {
         type: GET_MAP,
