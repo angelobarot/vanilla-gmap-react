@@ -182,16 +182,16 @@ class App extends Component {
                     }
 
                 </div>
-                {
-                    this.props.loading ?
-                        <div className="map-loading">
-                            <Spin indicator={antIcon} />
-                        </div>
-                        :
-                        <div className="map" ref={this.mapContainer} id="map"></div>
-                }
-                
-                
+                <div className="right-content">
+                    {
+                        this.props.loading ?
+                            <div className="map-loading">
+                                <Spin indicator={antIcon} />
+                            </div>
+                            :
+                            <div className="map" ref={this.mapContainer} id="map"></div>
+                    }
+                </div>        
             </div>
         );
     }
