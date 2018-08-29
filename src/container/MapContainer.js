@@ -13,6 +13,10 @@ const antIcon = <Icon type="compass" style={{ fontSize: 50, fontWeight: 'bold' }
 class App extends Component {
     constructor() {
         super();
+        this.state = {
+            directionsService: null,
+            directionsDisplay: null,
+        };
         this.mapContainer = React.createRef();
         this.renderGoogleMap = this.renderGoogleMap.bind(this);
         this.success = this.success.bind(this);
@@ -40,23 +44,37 @@ class App extends Component {
 
     componentWillReceiveProps(nextProps) {
         const { latitude, longitude } = nextProps.origin;
+
         if (this.props.map) {
             const position = new google.maps.LatLng(latitude, longitude);
             this.props.map.setCenter(position);
             this.props.map.setZoom(15);
 
             const map = this.props.map;
-            const marker = new google.maps.Marker({ 
-                position, 
+            const marker = new google.maps.Marker({
+                position,
                 map,
                 title: "Click to get branch details"
             });
             marker.addListener('click', this.handleMarkerClick);
-
+            console.log()
+            this.state.directionsService.route({
+                origin: position,
+                destination: new google.maps.LatLng(14.9968, 121.1710),
+                travelMode: this.props.travelType
+            }, (response, status) => {
+                if (status === 'OK') {
+                    this.state.directionsDisplay.setDirections(response);
+                } else {
+                    console.log(status);
+                }
+            })
         }
     }
 
     renderGoogleMap() {
+        const directionsService = new google.maps.DirectionsService();
+        const directionsDisplay = new google.maps.DirectionsRenderer();
         let map = new google.maps.Map(this.mapContainer.current, {
             center: {
                 lat: this.props.origin.latitude,
@@ -64,6 +82,8 @@ class App extends Component {
             },
             zoom: 8
         });
+        directionsDisplay.setMap(map);
+        this.setState({ directionsDisplay, directionsService });
         this.props.getMap(map);
     }
 
@@ -83,7 +103,7 @@ class App extends Component {
 
     reverseGeocode(geocoder, map, infowindow) {
         let latlng = { lat: parseFloat(this.props.origin.latitude), lng: parseFloat(this.props.origin.longitude) };
-        geocoder.geocode({'location': latlng}, (results, status) => {
+        geocoder.geocode({ 'location': latlng }, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {
                     this.props.map.setZoom(15);
@@ -140,8 +160,8 @@ class App extends Component {
                         :
                         <div className="map" ref={this.mapContainer} id="map"></div>
                 }
-                
-                
+
+
             </div>
         );
     }
