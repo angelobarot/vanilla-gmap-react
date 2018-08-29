@@ -78,7 +78,7 @@ class App extends Component {
         this.props.getLatOrigin(latitude);
         let geocoder = new google.maps.Geocoder();
         let infowindow = new google.maps.InfoWindow();
-        this.reverseGeocode(geocoder, this.props.map, infowindow);
+        this.reverseGeocodeOrigin(geocoder, this.props.map, infowindow);
         this.getNearby();
         this.props.stopLoading();
     }
@@ -95,7 +95,7 @@ class App extends Component {
         let service = new google.maps.places.PlacesService(this.props.map);
         service.nearbySearch({
             location,
-            radius: 500,
+            radius: 800,
             name: ['Unionbank'],
             type: ['banks', 'atm']
         }, this.callback);
@@ -125,13 +125,20 @@ class App extends Component {
             icon: image
         });
 
-        google.maps.event.addListener(marker, 'click', function () {
-            console.log(place.geometry.location.lat());
-            console.log(place.geometry.location.lng());
+        google.maps.event.addListener(marker, 'click', () => {
+            console.log(place);
+            const vicinity = place.vicinity;
+            const lat = place.geometry.location.lat();
+            const lng = place.geometry.location.lng();
+            this.props.getLatDestination(lat);
+            this.props.getLngDestination(lng);
+
+            let geocoder = new google.maps.Geocoder();
+            this.reverseGeocodeDestination(geocoder, this.props.map);
         });
     }
 
-    reverseGeocode(geocoder, map, infowindow) {
+    reverseGeocodeOrigin(geocoder, map, infowindow) {
         let latlng = { lat: parseFloat(this.props.origin.latitude), lng: parseFloat(this.props.origin.longitude) };
         geocoder.geocode({'location': latlng}, (results, status) => {
             if (status === 'OK') {
@@ -144,6 +151,21 @@ class App extends Component {
                     infowindow.setContent(results[0].formatted_address);
                     infowindow.open(this.props.map, marker);
                     this.props.getAddressOrigin(results[0].formatted_address);
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+
+    reverseGeocodeDestination(geocoder, map) {
+        let latlng = { lat: parseFloat(this.props.destination.latitude), lng: parseFloat(this.props.destination.longitude) };
+        geocoder.geocode({ 'location': latlng }, (results, status) => {
+            if (status === 'OK') {
+                if (results[0]) {
+                    this.props.getAddressDestination(results[0].formatted_address);
                 } else {
                     window.alert('No results found');
                 }

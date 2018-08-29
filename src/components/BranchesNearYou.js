@@ -17,13 +17,19 @@ class BranchesNearYou extends Component {
     }
 
     renderMenu() {
+        console.log(this.props.destination);
             return (
-                <Dropdown 
+                <Dropdown
                     overlay={
-                        <Menu onClick={this.handleMenuClick}>
+                        <Menu onClick={this.handleMenuClick} style={{ maxHeight: 500, overflow: 'auto' }}>
                             {
                                 this.props.branches.map((branch) => {
-                                    return <Menu.Item key={branch.id} value={branch} style={{ maxWidth: 390, overflow: 'hidden', textOverflow: 'ellipsis' }}><Icon type="environment" />{branch.vicinity}</Menu.Item>
+                                    return <Menu.Item 
+                                        key={branch.id} value={branch} 
+                                        style={{ maxWidth: 390, overflow: 'hidden', textOverflow: 'ellipsis' }}
+                                        >
+                                            <Icon type="environment" />{branch.vicinity}
+                                        </Menu.Item>
                                 })
                             }
 
@@ -31,11 +37,9 @@ class BranchesNearYou extends Component {
                     } 
                     trigger={['click']}
                 >
-                {
-                            <Button>
-                                Nearest branch by default <Icon type="down" />
-                            </Button>
-                }
+                    <Button>
+                        {this.props.destination.address} <Icon type="down" />
+                    </Button>
                 </Dropdown>
             );
     }
