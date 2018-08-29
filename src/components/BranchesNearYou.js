@@ -9,22 +9,23 @@ const ButtonGroup = Button.Group;
 
 class BranchesNearYou extends Component {
 
-    componentDidMount = () => {
-    };
-
     handleMenuClick = (e) => {
-        console.log('click', e.item.props.value);
+        this.props.getAddressDestination(e.item.props.value.vicinity);
+        this.props.getLatDestination(e.item.props.value.geometry.location.lat());
+        this.props.getLngDestination(e.item.props.value.geometry.location.lng());
     }
 
     renderMenu() {
-        console.log(this.props.destination);
+            console.log("Origin", this.props.origin);
+            console.log("Destination", this.props.destination);
             return (
                 <Dropdown
                     overlay={
-                        <Menu onClick={this.handleMenuClick} style={{ maxHeight: 500, overflow: 'auto' }}>
+                        <Menu style={{ maxHeight: 500, overflow: 'auto' }}>
                             {
                                 this.props.branches.map((branch) => {
                                     return <Menu.Item 
+                                        onClick={this.handleMenuClick}
                                         key={branch.id} value={branch} 
                                         style={{ maxWidth: 390, overflow: 'hidden', textOverflow: 'ellipsis' }}
                                         >

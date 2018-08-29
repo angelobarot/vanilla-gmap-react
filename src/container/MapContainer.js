@@ -22,7 +22,6 @@ class App extends Component {
         this.success = this.success.bind(this);
         this.error = this.error.bind(this);
         this.getPosition = this.getPosition.bind(this);
-        this.handleMarkerClick = this.handleMarkerClick.bind(this);
         this.callback = this.callback.bind(this);
     }
 
@@ -39,9 +38,6 @@ class App extends Component {
         this.renderGoogleMap();
     }
 
-    handleMarkerClick() {
-        this.props.toggleBranchInfo();
-    }
 
     componentWillReceiveProps(nextProps) {
         const { latitude, longitude } = nextProps.origin;
@@ -56,7 +52,6 @@ class App extends Component {
                 map,
                 title: "Click to get branch details"
             });
-            marker.addListener('click', this.handleMarkerClick);
 
         }
     }
@@ -112,8 +107,8 @@ class App extends Component {
     }
     
     createMarker(place) {
-        let image = {
-            url: place.icon,
+        let icon = {
+            url: 'https://www.unionbankph.com/images/icons/unionbankonline.jpg',
             size: new google.maps.Size(71, 71),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
@@ -122,19 +117,18 @@ class App extends Component {
         let marker = new google.maps.Marker({
             map: this.props.map,
             position: place.geometry.location,
-            icon: image
+            icon
         });
 
         google.maps.event.addListener(marker, 'click', () => {
-            console.log(place);
-            const vicinity = place.vicinity;
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
             this.props.getLatDestination(lat);
             this.props.getLngDestination(lng);
-
-            let geocoder = new google.maps.Geocoder();
-            this.reverseGeocodeDestination(geocoder, this.props.map);
+            this.props.getAddressDestination(place.vicinity);
+            this.props.toggleBranchInfo();
+            console.log("Origin", this.props.origin);
+            console.log("Destination", this.props.destination);
         });
     }
 
@@ -159,22 +153,6 @@ class App extends Component {
             }
         });
     }
-
-    reverseGeocodeDestination(geocoder, map) {
-        let latlng = { lat: parseFloat(this.props.destination.latitude), lng: parseFloat(this.props.destination.longitude) };
-        geocoder.geocode({ 'location': latlng }, (results, status) => {
-            if (status === 'OK') {
-                if (results[0]) {
-                    this.props.getAddressDestination(results[0].formatted_address);
-                } else {
-                    window.alert('No results found');
-                }
-            } else {
-                window.alert('Geocoder failed due to: ' + status);
-            }
-        });
-    }
-
 
     render() {
 

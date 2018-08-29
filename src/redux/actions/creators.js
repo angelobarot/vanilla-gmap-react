@@ -11,7 +11,8 @@ import {
     GET_MAP,
     TOGGLE_DIRECTION,
     TOGGLE_TRANSIT,
-    TOGGLE_BRANCH_INFO
+    TOGGLE_BRANCH_INFO,
+    GET_BRANCH_DETAILS
 } from './types';
 
 export function toggleLoading() {
@@ -72,6 +73,13 @@ export function getBranches(branch) {
     return {
         type: GET_BRANCHES,
         payload: branch
+    }
+}
+
+export function getBranchDetails(details) {
+    return {
+        type: GET_BRANCH_DETAILS,
+        payload: details
     }
 }
 

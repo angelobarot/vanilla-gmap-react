@@ -88,6 +88,7 @@ $border-color: #E6E6E6;
             overflow: hidden;
             text-overflow: ellipsis;
             color: $secondary-color;
+            text-align: left;
         }
         &:hover {
             color: $primary-color;
