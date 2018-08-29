@@ -10,9 +10,10 @@ import {
     GET_ADDRESS_DESTINATION,
     GET_BRANCHES,
     GET_MAP,
+    GET_TRAVEL_TYPE,
     TOGGLE_DIRECTION,
     TOGGLE_TRANSIT,
-    TOGGLE_BRANCH_INFO
+    TOGGLE_BRANCH_INFO,
 } from '../actions/types';
 
 const initialState = {
@@ -31,11 +32,12 @@ const initialState = {
     map: null,
     directionToggled: true,
     transitToggled: false,
-    branchInfoToggled: false
+    branchInfoToggled: false,
+    travelType: 'DRIVING'
 }
 
-function loadingReducer (state = initialState, action) {
-    switch(action.type) {
+function loadingReducer(state = initialState, action) {
+    switch (action.type) {
         case TOGGLE_LOADING:
             return { ...state, loading: true };
         case STOP_LOADING:
@@ -45,15 +47,15 @@ function loadingReducer (state = initialState, action) {
     }
 }
 
-function coordinatesReducer (state = initialState, action) {
-    switch(action.type) {
+function coordinatesReducer(state = initialState, action) {
+    switch (action.type) {
         case GET_LAT_ORIGIN:
-            return { 
+            return {
                 ...state,
                 origin: {
                     ...state.origin,
                     latitude: action.payload
-                } 
+                }
             };
         case GET_LNG_ORIGIN:
             return {
@@ -98,26 +100,31 @@ function coordinatesReducer (state = initialState, action) {
         case GET_BRANCHES:
             return {
                 ...state,
-                branches: [ ...state.branches, action.payload ]
+                branches: [...state.branches, action.payload]
             };
         case GET_MAP:
             return {
                 ...state,
                 map: action.payload
             };
+        case GET_TRAVEL_TYPE:
+            return {
+                ...state,
+                travelType: action.payload
+            }
         default:
             return state;
     }
 }
 
-function panelReducer (state = initialState, action) {
-    switch(action.type) {
+function panelReducer(state = initialState, action) {
+    switch (action.type) {
         case TOGGLE_DIRECTION:
-            return { 
+            return {
                 ...state,
                 directionToggled: true,
                 transitToggled: false,
-                branchInfoToggled: false 
+                branchInfoToggled: false
             }
         case TOGGLE_TRANSIT:
             return {
