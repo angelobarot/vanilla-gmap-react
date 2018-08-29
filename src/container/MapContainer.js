@@ -11,11 +11,13 @@ const google = window.google;
 
 const antIcon = <Icon type="compass" style={{ fontSize: 50, fontWeight: 'bold' }} spin />;
 class App extends Component {
+
     constructor() {
         super();
         this.state = {
             directionsService: null,
             directionsDisplay: null,
+            infowindow: null
         };
         this.mapContainer = React.createRef();
         this.renderGoogleMap = this.renderGoogleMap.bind(this);
@@ -23,6 +25,7 @@ class App extends Component {
         this.error = this.error.bind(this);
         this.getPosition = this.getPosition.bind(this);
         this.handleMarkerClick = this.handleMarkerClick.bind(this);
+        this.callback = this.callback.bind(this);
     }
 
     componentWillMount() {
@@ -94,11 +97,56 @@ class App extends Component {
         let geocoder = new google.maps.Geocoder();
         let infowindow = new google.maps.InfoWindow();
         this.reverseGeocode(geocoder, this.props.map, infowindow);
+        this.getNearby();
         this.props.stopLoading();
     }
 
     error(err) {
         console.log(err);
+    }
+
+    getNearby() {
+        let location = { lat: this.props.origin.latitude, lng: this.props.origin.longitude }
+        this.setState({
+            infowindow: new google.maps.InfoWindow()
+        });
+        let service = new google.maps.places.PlacesService(this.props.map);
+        service.nearbySearch({
+            location,
+            radius: 500,
+            name: ['Unionbank'],
+            type: ['banks', 'atm']
+        }, this.callback);
+    }
+
+    callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            results.map((result) => {
+                this.props.getBranches(result);
+                this.createMarker(result);
+                return result;
+            });
+        }
+    }
+
+    createMarker(place) {
+        let image = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+        };
+        let marker = new google.maps.Marker({
+            map: this.props.map,
+            position: place.geometry.location,
+            icon: image
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+            console.log(place.geometry.location.lat());
+            console.log(place.geometry.location.lng());
+        });
     }
 
     reverseGeocode(geocoder, map, infowindow) {
