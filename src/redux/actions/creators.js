@@ -7,7 +7,10 @@ import {
     GET_LAT_DESTINATION,
     GET_LNG_DESTINATION,
     GET_ADDRESS_DESTINATION,
-    GET_BRANCHES
+    GET_BRANCHES,
+    TOGGLE_DIRECTION,
+    TOGGLE_TRANSIT,
+    TOGGLE_BRANCH_INFO
 } from './types';
 
 export function toggleLoading() {
@@ -68,5 +71,23 @@ export function getBranches(branch) {
     return {
         type: GET_BRANCHES,
         payload: branch
+    }
+}
+
+export function toggleDirection() {
+    return {
+        type: TOGGLE_DIRECTION
+    }
+}
+
+export function toggleTransit() {
+    return {
+        type: TOGGLE_TRANSIT
+    }
+}
+
+export function toggleBranchInfo() {
+    return {
+        type: TOGGLE_BRANCH_INFO
     }
 }

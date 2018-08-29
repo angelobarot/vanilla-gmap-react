@@ -8,7 +8,10 @@ import {
     GET_LAT_DESTINATION,
     GET_LNG_DESTINATION,
     GET_ADDRESS_DESTINATION,
-    GET_BRANCHES
+    GET_BRANCHES,
+    TOGGLE_DIRECTION,
+    TOGGLE_TRANSIT,
+    TOGGLE_BRANCH_INFO
 } from '../actions/types';
 
 const initialState = {
@@ -23,7 +26,10 @@ const initialState = {
         longitude: 0,
         address: ''
     },
-    branches: []
+    branches: [],
+    directionToggled: true,
+    transitToggled: false,
+    branchInfoToggled: false
 }
 
 function loadingReducer (state = initialState, action) {
@@ -97,9 +103,37 @@ function coordinatesReducer (state = initialState, action) {
     }
 }
 
+function panelReducer (state = initialState, action) {
+    switch(action.type) {
+        case TOGGLE_DIRECTION:
+            return { 
+                ...state,
+                directionToggled: true,
+                transitToggled: false,
+                branchInfoToggled: false 
+            }
+        case TOGGLE_TRANSIT:
+            return {
+                ...state,
+                directionToggled: false,
+                transitToggled: true,
+                branchInfoToggled: false
+            }
+        case TOGGLE_BRANCH_INFO:
+            return {
+                directionToggled: false,
+                transitToggled: false,
+                branchInfoToggled: true
+            }
+        default:
+            return state;
+    }
+}
+
 const allReducers = combineReducers({
     loadingReducer,
-    coordinatesReducer
+    coordinatesReducer,
+    panelReducer
 });
 
 export default allReducers;

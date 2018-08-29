@@ -7,16 +7,19 @@ import {
     getLatDestination,
     getLngDestination,
     getAddressDestination,
-    getBranches
+    getBranches,
+    toggleDirection,
+    toggleTransit,
+    toggleBranchInfo
 } from '../actions/creators';
 
 const mapDispatchToProps = dispatch => {
     return {
         toggleLoading: () => {
-            dispatch(toggleLoading())
+            dispatch(toggleLoading());
         },
         stopLoading: () => {
-            dispatch(stopLoading())
+            dispatch(stopLoading());
         },
         getAddressOrigin: (address) => {
             dispatch(getAddressOrigin(address))
@@ -39,6 +42,15 @@ const mapDispatchToProps = dispatch => {
         getBranches: (branch) => {
             dispatch(getBranches(branch));
         },
+        toggleDirection: () => {
+            dispatch(toggleDirection());
+        },
+        toggleTransit: () => {
+            dispatch(toggleTransit());
+        },
+        toggleBranchInfo: () => {
+            dispatch(toggleBranchInfo());
+        }
     }
 }
 

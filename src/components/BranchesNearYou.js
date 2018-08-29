@@ -22,31 +22,35 @@ class BranchesNearYou extends Component {
         this.props.toggleLoading();
     };
 
+    handleClose = () => {
+        this.props.toggleDirection();
+    }
+
     render() {
         return (
             <div className="branchesNearYou">
                 {
-                    this.props.getDirection ?
-                    <div className="get-direction-buttons">
-                        <div className="transportation-buttons">
-                                <ButtonGroup>
-                                    <Button>
-                                        <img src={require('../assets/images/walking.png')} alt="walking" />
-                                    </Button>
-                                    <Button>
-                                        <img src={require('../assets/images/car.png')} alt="walking" />
-                                    </Button>
-                                    <Button>
-                                        <img src={require('../assets/images/bus.png')} alt="walking" />
-                                    </Button>
-                                </ButtonGroup>
-                        </div>
-                        <div className="close-btn">
-                            <Button icon="close"></Button>
-                        </div>
-                    </div> :
-                    <h2 className="bnyHeader">Branches near you</h2>
-                    
+                    this.props.directionShow ?
+                        <div className="get-direction-buttons">
+                            <div className="transportation-buttons">
+                                    <ButtonGroup>
+                                        <Button>
+                                            <img src={require('../assets/images/walking.png')} alt="walking" />
+                                        </Button>
+                                        <Button>
+                                            <img src={require('../assets/images/car.png')} alt="walking" />
+                                        </Button>
+                                        <Button>
+                                            <img src={require('../assets/images/bus.png')} alt="walking" />
+                                        </Button>
+                                    </ButtonGroup>
+                            </div>
+                            <div className="close-btn">
+                                <Button icon="close" onClick={this.handleClose}></Button>
+                            </div>
+                        </div> 
+                            :
+                        <h2 className="bnyHeader">Branches near you</h2>
                 }
                 <div className="origin">
                     <p>Enter address of origin (e.g. Street, City)</p>
@@ -65,11 +69,11 @@ class BranchesNearYou extends Component {
                     </Dropdown>
                 </div>
                 {
-                    this.props.getDirection ?
+                    this.props.directionShow ?
                     <div /> :
-                    <div className="button-container">
-                        <GetDirection />
-                    </div>
+                    <div className = "button-container">
+                        <GetDirection / >
+                    </div> 
                 }
             </div>
         )
