@@ -5,8 +5,6 @@ import GetDirection from './common/GetDirection';
 import state from '../redux/state/state';
 import dispatcher from '../redux/dispatcher/dispatcher';
 
-const google = window.google;
-
 const menu = (
     <Menu>
         <Menu.Item key="1">1st item</Menu.Item>
@@ -66,7 +64,7 @@ class BranchesNearYou extends Component {
                         value={this.props.origin.address}
                         onChange={this.handleTextChange}
                         placeholder="Choose starting point"
-                        suffix={<Icon type="environment-o" className="pin-search" style={{ color: '#EC602C', fontSize: 24 }} />}
+                        suffix={<Icon type="environment-o" onClick={this.props.getPosition} className="pin-search" style={{ color: '#EC602C', fontSize: 24 }} />}
                     />
                 </div>
                 <div className="destination">
