@@ -19,7 +19,6 @@ const ButtonGroup = Button.Group;
 class BranchesNearYou extends Component {
 
     componentDidMount = () => {
-        this.props.toggleLoading();
         console.log(this.props.origin.address);
     };
 
