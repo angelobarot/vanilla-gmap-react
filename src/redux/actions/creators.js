@@ -9,9 +9,10 @@ import {
     GET_ADDRESS_DESTINATION,
     GET_BRANCHES,
     GET_MAP,
+    GET_TRAVEL_TYPE,
     TOGGLE_DIRECTION,
     TOGGLE_TRANSIT,
-    TOGGLE_BRANCH_INFO
+    TOGGLE_BRANCH_INFO,
 } from './types';
 
 export function toggleLoading() {
@@ -79,6 +80,14 @@ export function getMap(map) {
     return {
         type: GET_MAP,
         payload: map
+    }
+}
+
+export function getTravelType(travelType) {
+    console.log(travelType);
+    return {
+        type: GET_TRAVEL_TYPE,
+        payload: travelType
     }
 }
 
