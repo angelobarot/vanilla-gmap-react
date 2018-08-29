@@ -55,6 +55,11 @@ $border-color: #E6E6E6;
             border-color: $primary-color !important;
         }
     }
+    .ant-input-affix-wrapper {
+        .ant-input:not(:last-child) {
+            padding-right: 55px;
+        }
+    }
 
     .originInput {
         height: 50px;

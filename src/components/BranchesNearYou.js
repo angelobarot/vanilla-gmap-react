@@ -20,10 +20,15 @@ class BranchesNearYou extends Component {
 
     componentDidMount = () => {
         this.props.toggleLoading();
+        console.log(this.props.origin.address);
     };
 
     handleClose = () => {
         this.props.toggleDirection();
+    }
+
+    handleTextChange = (e) => {
+        this.props.getAddressOrigin(e.target.value);
     }
 
     render() {
@@ -56,6 +61,8 @@ class BranchesNearYou extends Component {
                     <p>Enter address of origin (e.g. Street, City)</p>
                     <Input
                         className="originInput"
+                        value={this.props.origin.address}
+                        onChange={this.handleTextChange}
                         placeholder="Choose starting point"
                         suffix={<Icon type="environment-o" className="pin-search" style={{ color: '#EC602C', fontSize: 24 }} />}
                     />

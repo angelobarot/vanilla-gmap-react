@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CSSTransitionGroup } from 'react-transition-group'
 import BranchesNearYou from '../components/BranchesNearYou';
 import BranchDetails from '../components/BranchDetails';
 import 'antd/dist/antd.css';
@@ -20,7 +19,6 @@ class App extends Component {
         this.renderGoogleMap = this.renderGoogleMap.bind(this);
         this.success = this.success.bind(this);
         this.error = this.error.bind(this);
-        this.getDirection = this.getDirection.bind(this);
         this.handleMarkerClick = this.handleMarkerClick.bind(this);
     }
 
@@ -63,6 +61,7 @@ class App extends Component {
             zoom: 8
         });
 
+        
         this.setState({ map });
     }
 
@@ -70,17 +69,37 @@ class App extends Component {
         const { latitude, longitude } = position.coords;
         this.props.getLngOrigin(longitude);
         this.props.getLatOrigin(latitude);
+        let geocoder = new google.maps.Geocoder();
+        let infowindow = new google.maps.InfoWindow();
+        this.reverseGeocode(geocoder, this.state.map, infowindow);
     }
 
     error(err) {
         console.log(err);
     }
 
-    getDirection() {
-        this.setState({
-            getDirection: true
-        })
+    reverseGeocode(geocoder, map, infowindow) {
+        let latlng = { lat: parseFloat(this.props.origin.latitude), lng: parseFloat(this.props.origin.longitude) };
+        geocoder.geocode({'location': latlng}, (results, status) => {
+            if (status === 'OK') {
+                if (results[0]) {
+                    this.state.map.setZoom(15);
+                    let marker = new google.maps.Marker({
+                        position: latlng,
+                        map: this.state.map
+                    });
+                    infowindow.setContent(results[0].formatted_address);
+                    infowindow.open(this.state.map, marker);
+                    this.props.getAddressOrigin(results[0].formatted_address);
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
     }
+
 
     render() {
 
@@ -108,9 +127,6 @@ class App extends Component {
                             /> :
                             <div />
                     }
-
-                    
-                    
 
                 </div>
                 <div className="map" ref={this.mapContainer} id="map"></div>
