@@ -82,6 +82,12 @@ $border-color: #E6E6E6;
         line-height: 36px;
     }
 
+    .ant-dropdown-menu-item {
+        max-width: 390px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .ant-btn {
         &:hover {
             color: $primary-color;

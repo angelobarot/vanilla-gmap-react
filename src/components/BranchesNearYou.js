@@ -23,7 +23,7 @@ class BranchesNearYou extends Component {
                         <Menu onClick={this.handleMenuClick}>
                             {
                                 this.props.branches.map((branch) => {
-                                    return <Menu.Item key={branch.id} value={branch}><Icon type="environment" />{branch.vicinity}</Menu.Item>
+                                    return <Menu.Item key={branch.id} value={branch} style={{ maxWidth: 390, overflow: 'hidden', textOverflow: 'ellipsis' }}><Icon type="environment" />{branch.vicinity}</Menu.Item>
                                 })
                             }
 
