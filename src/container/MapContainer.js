@@ -24,7 +24,6 @@ class App extends Component {
         this.success = this.success.bind(this);
         this.error = this.error.bind(this);
         this.getPosition = this.getPosition.bind(this);
-        this.handleMarkerClick = this.handleMarkerClick.bind(this);
         this.callback = this.callback.bind(this);
     }
 
@@ -41,9 +40,6 @@ class App extends Component {
         this.renderGoogleMap();
     }
 
-    handleMarkerClick() {
-        this.props.toggleBranchInfo();
-    }
 
     componentWillReceiveProps(nextProps) {
         const { latitude, longitude } = nextProps.origin;
@@ -59,7 +55,6 @@ class App extends Component {
                 map,
                 title: "Click to get branch details"
             });
-            marker.addListener('click', this.handleMarkerClick);
             // this.state.directionsService.route({
             //     origin: position,    
             //     destination: new google.maps.LatLng(14.9968, 121.1710),
@@ -96,7 +91,7 @@ class App extends Component {
         this.props.getLatOrigin(latitude);
         let geocoder = new google.maps.Geocoder();
         let infowindow = new google.maps.InfoWindow();
-        this.reverseGeocode(geocoder, this.props.map, infowindow);
+        this.reverseGeocodeOrigin(geocoder, this.props.map, infowindow);
         this.getNearby();
         this.props.stopLoading();
     }
@@ -113,7 +108,7 @@ class App extends Component {
         let service = new google.maps.places.PlacesService(this.props.map);
         service.nearbySearch({
             location,
-            radius: 500,
+            radius: 800,
             name: ['Unionbank'],
             type: ['banks', 'atm']
         }, this.callback);
@@ -130,8 +125,8 @@ class App extends Component {
     }
 
     createMarker(place) {
-        let image = {
-            url: place.icon,
+        let icon = {
+            url: 'https://www.unionbankph.com/images/icons/unionbankonline.jpg',
             size: new google.maps.Size(71, 71),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
@@ -140,16 +135,22 @@ class App extends Component {
         let marker = new google.maps.Marker({
             map: this.props.map,
             position: place.geometry.location,
-            icon: image
+            icon
         });
 
-        google.maps.event.addListener(marker, 'click', function () {
-            console.log(place.geometry.location.lat());
-            console.log(place.geometry.location.lng());
+        google.maps.event.addListener(marker, 'click', () => {
+            const lat = place.geometry.location.lat();
+            const lng = place.geometry.location.lng();
+            this.props.getLatDestination(lat);
+            this.props.getLngDestination(lng);
+            this.props.getAddressDestination(place.vicinity);
+            this.props.toggleBranchInfo();
+            console.log("Origin", this.props.origin);
+            console.log("Destination", this.props.destination);
         });
     }
 
-    reverseGeocode(geocoder, map, infowindow) {
+    reverseGeocodeOrigin(geocoder, map, infowindow) {
         let latlng = { lat: parseFloat(this.props.origin.latitude), lng: parseFloat(this.props.origin.longitude) };
         geocoder.geocode({ 'location': latlng }, (results, status) => {
             if (status === 'OK') {
@@ -170,7 +171,6 @@ class App extends Component {
             }
         });
     }
-
 
     render() {
 

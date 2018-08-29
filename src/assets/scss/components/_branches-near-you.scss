@@ -82,13 +82,14 @@ $border-color: #E6E6E6;
         line-height: 36px;
     }
 
-    .ant-dropdown-menu-item {
-        max-width: 390px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
     .ant-btn {
+        span:first-child{
+            width: 370px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: $secondary-color;
+            text-align: left;
+        }
         &:hover {
             color: $primary-color;
             background-color: #fff;
@@ -123,13 +124,8 @@ $border-color: #E6E6E6;
             border-radius: 10px;
             width: 390px;
             height: 50px;
-            span {
-                float: left;
-                color: $secondary-color;
-                opacity: 0.7;
-            }
-            i.anticon-down {
-                float: right;
+            display: flex;
+            i.anticon {
                 font-size: 24px;
             }
         }

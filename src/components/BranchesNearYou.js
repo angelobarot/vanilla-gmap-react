@@ -13,21 +13,28 @@ class BranchesNearYou extends Component {
         this.handleTravelTypeChange = this.handleTravelTypeChange.bind(this);
     }
 
-    componentDidMount = () => {
-    };
-
     handleMenuClick = (e) => {
-        console.log('click', e.item.props.value);
+        this.props.getAddressDestination(e.item.props.value.vicinity);
+        this.props.getLatDestination(e.item.props.value.geometry.location.lat());
+        this.props.getLngDestination(e.item.props.value.geometry.location.lng());
     }
 
     renderMenu() {
+            console.log("Origin", this.props.origin);
+            console.log("Destination", this.props.destination);
             return (
-                <Dropdown 
+                <Dropdown
                     overlay={
-                        <Menu onClick={this.handleMenuClick}>
+                        <Menu style={{ maxHeight: 500, overflow: 'auto' }}>
                             {
                                 this.props.branches.map((branch) => {
-                                    return <Menu.Item key={branch.id} value={branch} style={{ maxWidth: 390, overflow: 'hidden', textOverflow: 'ellipsis' }}><Icon type="environment" />{branch.vicinity}</Menu.Item>
+                                    return <Menu.Item 
+                                        onClick={this.handleMenuClick}
+                                        key={branch.id} value={branch} 
+                                        style={{ maxWidth: 390, overflow: 'hidden', textOverflow: 'ellipsis' }}
+                                        >
+                                            <Icon type="environment" />{branch.vicinity}
+                                        </Menu.Item>
                                 })
                             }
 
@@ -35,11 +42,9 @@ class BranchesNearYou extends Component {
                     } 
                     trigger={['click']}
                 >
-                {
-                            <Button>
-                                Nearest branch by default <Icon type="down" />
-                            </Button>
-                }
+                    <Button>
+                        {this.props.destination.address} <Icon type="down" />
+                    </Button>
                 </Dropdown>
             );
     }
