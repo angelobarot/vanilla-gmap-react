@@ -17,6 +17,10 @@ const ButtonGroup = Button.Group;
 
 
 class BranchesNearYou extends Component {
+    constructor() {
+        super();
+        this.handleTravelTypeChange = this.handleTravelTypeChange.bind(this);
+    }
 
     componentDidMount = () => {
         console.log(this.props.origin.address);
@@ -30,6 +34,10 @@ class BranchesNearYou extends Component {
         this.props.getAddressOrigin(e.target.value);
     }
 
+    handleTravelTypeChange(value) {
+        this.props.getTravelType(value);
+    }
+
     render() {
         return (
             <div className="branchesNearYou">
@@ -37,23 +45,23 @@ class BranchesNearYou extends Component {
                     this.props.directionShow ?
                         <div className="get-direction-buttons">
                             <div className="transportation-buttons">
-                                    <ButtonGroup>
-                                        <Button>
-                                            <img src={require('../assets/images/walking.png')} alt="walking" />
-                                        </Button>
-                                        <Button>
-                                            <img src={require('../assets/images/car.png')} alt="walking" />
-                                        </Button>
-                                        <Button>
-                                            <img src={require('../assets/images/bus.png')} alt="walking" />
-                                        </Button>
-                                    </ButtonGroup>
+                                <ButtonGroup>
+                                    <Button onClick={() => this.handleTravelTypeChange('WALKING')} value="WALKING">
+                                        <img src={require('../assets/images/walking.png')} alt="walking" />
+                                    </Button>
+                                    <Button onClick={() => this.handleTravelTypeChange('DRIVING')} value="DRIVING">
+                                        <img src={require('../assets/images/car.png')} alt="driving" />
+                                    </Button>
+                                    <Button onClick={() => this.handleTravelTypeChange('TRANSIT')} value="TRANSIT">
+                                        <img src={require('../assets/images/bus.png')} alt="transit" />
+                                    </Button>
+                                </ButtonGroup>
                             </div>
                             <div className="close-btn">
                                 <Button icon="close" onClick={this.handleClose}></Button>
                             </div>
-                        </div> 
-                            :
+                        </div>
+                        :
                         <h2 className="bnyHeader">Branches near you</h2>
                 }
                 <div className="origin">
@@ -76,10 +84,10 @@ class BranchesNearYou extends Component {
                 </div>
                 {
                     this.props.directionShow ?
-                    <div /> :
-                    <div className = "button-container">
-                        <GetDirection / >
-                    </div> 
+                        <div /> :
+                        <div className="button-container">
+                            <GetDirection />
+                        </div>
                 }
             </div>
         )
