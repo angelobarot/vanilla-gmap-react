@@ -60,18 +60,17 @@ class App extends Component {
                 title: "Click to get branch details"
             });
             marker.addListener('click', this.handleMarkerClick);
-            console.log()
-            this.state.directionsService.route({
-                origin: position,
-                destination: new google.maps.LatLng(14.9968, 121.1710),
-                travelMode: this.props.travelType
-            }, (response, status) => {
-                if (status === 'OK') {
-                    this.state.directionsDisplay.setDirections(response);
-                } else {
-                    console.log(status);
-                }
-            })
+            // this.state.directionsService.route({
+            //     origin: position,    
+            //     destination: new google.maps.LatLng(14.9968, 121.1710),
+            //     travelMode: this.props.travelType
+            // }, (response, status) => {
+            //     if (status === 'OK') {
+            //         this.state.directionsDisplay.setDirections(response);
+            //     } else {
+            //         console.log(status);
+            //     }
+            // })
         }
     }
 
@@ -85,8 +84,9 @@ class App extends Component {
             },
             zoom: 8
         });
-        directionsDisplay.setMap(map);
-        this.setState({ directionsDisplay, directionsService });
+        // directionsDisplay.setMap(map);
+        // this.setState({ directionsDisplay, directionsService });
+        this.props.getDirections({ directionsDisplay, directionsService });
         this.props.getMap(map);
     }
 
@@ -163,10 +163,10 @@ class App extends Component {
                     infowindow.open(this.props.map, marker);
                     this.props.getAddressOrigin(results[0].formatted_address);
                 } else {
-                    window.alert('No results found');
+                    // window.alert('No results found');
                 }
             } else {
-                window.alert('Geocoder failed due to: ' + status);
+                // window.alert('Geocoder failed due to: ' + status);
             }
         });
     }
