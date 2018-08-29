@@ -11,6 +11,7 @@ import {
     GET_BRANCHES,
     GET_MAP,
     GET_TRAVEL_TYPE,
+    GET_DIRECTIONS,
     TOGGLE_DIRECTION,
     TOGGLE_TRANSIT,
     TOGGLE_BRANCH_INFO,
@@ -33,7 +34,8 @@ const initialState = {
     directionToggled: true,
     transitToggled: false,
     branchInfoToggled: false,
-    travelType: 'DRIVING'
+    travelType: 'DRIVING',
+    directions: null,
 }
 
 function loadingReducer(state = initialState, action) {
@@ -111,6 +113,11 @@ function coordinatesReducer(state = initialState, action) {
             return {
                 ...state,
                 travelType: action.payload
+            }
+        case GET_DIRECTIONS:
+            return {
+                ...state,
+                directions: action.payload
             }
         default:
             return state;

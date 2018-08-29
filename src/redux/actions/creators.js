@@ -10,6 +10,7 @@ import {
     GET_BRANCHES,
     GET_MAP,
     GET_TRAVEL_TYPE,
+    GET_DIRECTIONS,
     TOGGLE_DIRECTION,
     TOGGLE_TRANSIT,
     TOGGLE_BRANCH_INFO,
@@ -84,10 +85,17 @@ export function getMap(map) {
 }
 
 export function getTravelType(travelType) {
-    console.log(travelType);
     return {
         type: GET_TRAVEL_TYPE,
         payload: travelType
+    }
+}
+
+export function getDirections(directions) {
+    console.log(directions);
+    return {
+        type: GET_DIRECTIONS,
+        payload: directions
     }
 }
 

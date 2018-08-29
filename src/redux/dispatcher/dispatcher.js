@@ -9,10 +9,11 @@ import {
     getAddressDestination,
     getBranches,
     getMap,
+    getTravelType,
+    getDirections,
     toggleDirection,
     toggleTransit,
     toggleBranchInfo,
-    getTravelType,
 } from '../actions/creators';
 
 const mapDispatchToProps = dispatch => {
@@ -49,6 +50,9 @@ const mapDispatchToProps = dispatch => {
         },
         getTravelType: (travelType) => {
             dispatch(getTravelType(travelType));
+        },
+        getDirections: (directions) => {
+            dispatch(getDirections(directions));
         },
         toggleDirection: () => {
             dispatch(toggleDirection());
