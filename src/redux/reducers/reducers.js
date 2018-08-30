@@ -9,6 +9,7 @@ import {
     GET_LNG_DESTINATION,
     GET_ADDRESS_DESTINATION,
     GET_BRANCHES,
+    GET_BRANCH_DETAILS,
     GET_MAP,
     GET_TRAVEL_TYPE,
     GET_DIRECTIONS,
@@ -31,6 +32,14 @@ const initialState = {
         details: {}
     },
     branches: [],
+    branchDetails: {
+        id: '',
+        name: '',
+        openNow: false,
+        vicinity: '',
+        contactNumber: ''
+            
+    },
     map: null,
     directionToggled: true,
     transitToggled: false,
@@ -104,6 +113,18 @@ function coordinatesReducer(state = initialState, action) {
             return {
                 ...state,
                 branches: [...state.branches, action.payload]
+            };
+        case GET_BRANCH_DETAILS:
+            return {
+                ...state,
+                branchDetails: {
+                    ...state.branchDetails, 
+                    id: action.payload.id,
+                    name: action.payload.name,
+                    openNow: action.payload.openNow,
+                    vicinity: action.payload.vicinity,
+                    contactNumber: action.payload.contactNumber
+                }
             };
         case GET_MAP:
             return {

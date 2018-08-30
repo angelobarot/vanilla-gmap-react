@@ -8,11 +8,15 @@ class BranchDetails extends Component {
     render() {
         return (
         <div className="branch-details">
-            <h3 className="branch-name">{this.props.destination.address}</h3>
-            <p className="branch-address">{this.props.destination.address}</p>
-            <p className="branch-weekday">{this.props.destination.address}</p>
-            <p className="branch-weekend">{this.props.destination.address}</p>
-            <p className="branch-contact">{this.props.destination.address}</p>
+            <h3 className="branch-name">{this.props.branchDetails.name}</h3>
+            <p className="branch-address">{this.props.branchDetails.vicinity}</p>
+            {
+                this.props.branchDetails.openNow ?
+                        <p className="branch-weekday">Open Now</p>
+                        :
+                        <p className="branch-weekend">Closed Now</p>
+            }
+            <p className="branch-contact">{this.props.branchDetails.contactNumber}</p>
             <div className="button-container">
                 <GetDirection />
             </div>

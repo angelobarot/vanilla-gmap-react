@@ -8,6 +8,7 @@ import {
     GET_LNG_DESTINATION,
     GET_ADDRESS_DESTINATION,
     GET_BRANCHES,
+    GET_BRANCH_DETAILS,
     GET_MAP,
     GET_TRAVEL_TYPE,
     GET_DIRECTIONS,
@@ -77,12 +78,12 @@ export function getBranches(branch) {
     }
 }
 
-// export function getBranchDetails(details) {
-//     return {
-//         type: GET_BRANCH_DETAILS,
-//         payload: details
-//     }
-// }
+export function getBranchDetails(details) {
+    return {
+        type: GET_BRANCH_DETAILS,
+        payload: details
+    }
+}
 
 export function getMap(map) {
     return {
@@ -99,7 +100,6 @@ export function getTravelType(travelType) {
 }
 
 export function getDirections(directions) {
-    console.log(directions);
     return {
         type: GET_DIRECTIONS,
         payload: directions

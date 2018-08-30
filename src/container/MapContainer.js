@@ -57,7 +57,6 @@ class App extends Component {
             });
 
             if (nextProps.transitToggled) {
-                console.log(nextProps.travelType);
                 const position = new google.maps.LatLng(latitude, longitude);
                 this.props.directions.directionsService.route({
                     origin: position,
@@ -136,41 +135,28 @@ class App extends Component {
     }
 
     createMarker(place) {
-        const customSymbol = {
-            path: google.maps.SymbolPath.CIRCLE,
-            // path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
-            // url: 'https://www.unionbankph.com/images/icons/unionbankonline.jpg',
-            fillColor: 'orange',
-            fillOpacity: 1,
-            scale: 15,
-            strokeColor: '#0e0059',
-            strokeWeight: 5,
-        };
 
-        let icon = {
-            url: '../assets/images/bank.png',
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-        };
-        console.log(icon);
         let marker = new google.maps.Marker({
             map: this.props.map,
             position: place.geometry.location,
-            icon,
-            // animation: google.maps.Animation.On
+            animation: google.maps.Animation.On
         });
 
         google.maps.event.addListener(marker, 'click', () => {
+            let details = {
+                id: place.id,
+                name: place.name,
+                openNow: true,
+                vicinity: place.vicinity,
+                contactNumber: '',
+            }
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
+            this.props.getBranchDetails(details);
             this.props.getLatDestination(lat);
             this.props.getLngDestination(lng);
             this.props.getAddressDestination(place.vicinity);
             this.props.toggleBranchInfo();
-            // console.log("Origin", this.props.origin);
-            // console.log("Destination", this.props.destination);
         });
     }
 
@@ -185,7 +171,6 @@ class App extends Component {
                         map: this.props.map
                     });
                     infowindow.setContent(results[0].formatted_address);
-                    infowindow.open(this.props.map, marker);
                     this.props.getAddressOrigin(results[0].formatted_address);
                 } else {
                     // window.alert('No results found');

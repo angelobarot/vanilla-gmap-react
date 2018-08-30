@@ -8,6 +8,7 @@ import {
     getLngDestination,
     getAddressDestination,
     getBranches,
+    getBranchDetails,
     getMap,
     getTravelType,
     getDirections,
@@ -44,6 +45,9 @@ const mapDispatchToProps = dispatch => {
         },
         getBranches: (branch) => {
             dispatch(getBranches(branch));
+        },
+        getBranchDetails: (details) => {
+            dispatch(getBranchDetails(details));
         },
         getMap: (map) => {
             dispatch(getMap(map));

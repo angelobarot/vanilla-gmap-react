@@ -20,8 +20,6 @@ class BranchesNearYou extends Component {
     }
 
     renderMenu() {
-            console.log("Origin", this.props.origin);
-            console.log("Destination", this.props.destination);
             return (
                 <Dropdown
                     overlay={
