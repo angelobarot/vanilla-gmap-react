@@ -55,17 +55,28 @@ class App extends Component {
                 map,
                 title: "Click to get branch details"
             });
-            // this.state.directionsService.route({
-            //     origin: position,    
-            //     destination: new google.maps.LatLng(14.9968, 121.1710),
-            //     travelMode: this.props.travelType
-            // }, (response, status) => {
-            //     if (status === 'OK') {
-            //         this.state.directionsDisplay.setDirections(response);
-            //     } else {
-            //         console.log(status);
-            //     }
-            // })
+
+            if (nextProps.transitToggled) {
+                console.log(nextProps.travelType);
+                const position = new google.maps.LatLng(latitude, longitude);
+                this.props.directions.directionsService.route({
+                    origin: position,
+                    destination: new google.maps.LatLng(nextProps.destination.latitude, nextProps.destination.longitude),
+                    travelMode: google.maps.TravelMode[nextProps.travelType],
+                    provideRouteAlternatives: true,
+                    drivingOptions: {
+                        departureTime: new Date(Date.now()),  // for the time N milliseconds from now.
+                        trafficModel: 'optimistic'
+                    }
+                }, (response, status) => {
+                    if (status === 'OK') {
+                        this.props.directions.directionsDisplay.setDirections(response);
+                    } else {
+                        console.log(status);
+                    }
+                });
+                this.props.directions.directionsDisplay.setMap(nextProps.map);
+            }
         }
     }
 
@@ -125,17 +136,30 @@ class App extends Component {
     }
 
     createMarker(place) {
+        const customSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            // path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+            // url: 'https://www.unionbankph.com/images/icons/unionbankonline.jpg',
+            fillColor: 'orange',
+            fillOpacity: 1,
+            scale: 15,
+            strokeColor: '#0e0059',
+            strokeWeight: 5,
+        };
+
         let icon = {
-            url: 'https://www.unionbankph.com/images/icons/unionbankonline.jpg',
+            url: '../assets/images/bank.png',
             size: new google.maps.Size(71, 71),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
             scaledSize: new google.maps.Size(25, 25)
         };
+        console.log(icon);
         let marker = new google.maps.Marker({
             map: this.props.map,
             position: place.geometry.location,
-            icon
+            icon,
+            // animation: google.maps.Animation.On
         });
 
         google.maps.event.addListener(marker, 'click', () => {
@@ -145,8 +169,8 @@ class App extends Component {
             this.props.getLngDestination(lng);
             this.props.getAddressDestination(place.vicinity);
             this.props.toggleBranchInfo();
-            console.log("Origin", this.props.origin);
-            console.log("Destination", this.props.destination);
+            // console.log("Origin", this.props.origin);
+            // console.log("Destination", this.props.destination);
         });
     }
 
