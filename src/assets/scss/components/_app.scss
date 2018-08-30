@@ -3,6 +3,21 @@
     max-width: 1280px; 
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.right-content {
+    min-width: 450px;
+    height: 100%;
+    flex: 2;
+}
+
+.left-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
